@@ -1,107 +1,55 @@
-class Player extends GuaAnimation {
+class Bird extends GuaAnimation{
     constructor(game) {
         var animations = {
             'idle': {
-                number: 2,
+                number: 3,
                 frameCount: 3,
                 frames: []
-            },
-            'boom': {
-                number: 4,
-                frameCount: 12,
-                frames: []
             }
         }
-        super(game, 'player', animations)
-        this.setup()
-    }
+        super(game, 'palyer', animations)
 
-    setup() {
-        this.speed = config.player_speed
-        this.paused = false
-        this.x = 150
-        this.y = 450
-        this.coolDown = 0
-        this.bulletConfig = {
-            name: 'bullet1',
-            speed: 10
-        }
-        this.endTime = this.animations['boom']['frameCount']
+        this.filpX = false
 
         //
-        this.lifes = 6
+        this.gy = 10
+        this.vy = 0
+        this.rotation = 0
     }
 
-    update() {
+    draw(){
+        var context = this.game.context
+        context.save()
+
+        var w2 = this.w / 2
+        var h2 = this.h / 2
+        context.translate(this.x + w2, this.y + h2)
+        if (this.flipX) {
+            context.scale(-1, 1)
+        }
+        context.rotate(this.rotation * Math.PI / 180)
+        context.translate(-w2, -h2)
+        context.drawImage(this.texture, 0, 0)
+
+        context.restore()
+    }
+
+    update(){
         super.update()
-        var p = this
-        p.speed = config.player_speed
-        if (p.coolDown > 0) {
-            p.coolDown--
+        this.y += this.vy
+        this.vy += this.gy * 0.2
+        var h = 385
+        if (this.y > h) {
+            this.y = h
         }
 
-        if (p.lifes == 0) {
-            p.animationName = 'boom'
-            p.paused = true
-        }
-
-        if (p.animationName == 'boom') {
-            if ((p.frameIndex + 1) == p.animations['boom']['number']) {
-                p.endTime -= 1
-            }
-        }
-
-        if (p.endTime == 0) {
-            p.alive = false
+        if (this.rotation < 45) {
+            this.rotation += 5
         }
     }
 
-    fire() {
-        if (this.coolDown == 0) {
-            this.coolDown = 10
-            this.bulletConfig.x = this.x + this.w / 2
-            this.bulletConfig.y = this.y
-            var b = Bullet.new(this.game, this.bulletConfig)
-            this.scene.addElement(b)
-            this.scene.playerBullet.push(b)
-        }
-    }
-
-    getHearts(x, y) {
-        var s = this
-        var n = s.lifes + 1
-        var hearts = []
-        for (var i = 1; i < n; i++) {
-            var heart = GuaImage.new(s.game, 'heart')
-            heart.x = x + i * heart.w
-            heart.y = y
-            hearts.push(heart)
-        }
-        return hearts
-    }
-
-    moveLeft() {
-        if (this.paused) {
-            return
-        }
-        this.x -= this.speed
-    }
-    moveRight() {
-        if (this.paused) {
-            return
-        }
-        this.x += this.speed
-    }
-    moveUp() {
-        if (this.paused) {
-            return
-        }
-        this.y -= this.speed
-    }
-    moveDown() {
-        if (this.paused) {
-            return
-        }
-        this.y += this.speed
+    jump(){
+        this.vy = -10
+        this.rotation = -45
     }
 }

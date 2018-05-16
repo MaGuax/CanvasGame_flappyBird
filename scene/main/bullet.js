@@ -1,84 +1,53 @@
-// class Bullet extends GuaImage{
-//     constructor(game, type) {
-//         var name = 'bullet' + type
-//         super(game, name)
-//
-//         this.type = type
-//         this.setup()
-//     }
-//
-//     setup() {
-//         this.speedTypes = {
-//             '1': 3,
-//             '2': -3
-//         }
-//         this.speed = this.speedTypes[this.type]
-//
-//         this.lifes = 1
-//     }
-//
-//     update() {
-//         this.y -= this.speed
-//
-//         if (this.y > 600) {
-//             this.lifes--
-//         }
-//
-//         // if (rectIntersects(this)) {
-//         //
-//         // }
-//     }
-// }
-
-class Bullet extends GuaParticleSystem {
-    constructor(game, config) {
-        var particle = {
-            'all': {
-                number: 1,
-                particleList: [],
-                vx: 0,
-                vy: 0,
-            },
-            'particle': {
-                number: 10,
-                particleList: [],
-                vx: randomBtween(-10, 10),
-                vy: randomBtween(-10, 10)
-            }
-        }
-        super(game, config.name, particle)
-
-        this.setup(config)
+class Land {
+    constructor(game) {
+        this.game = game
+        this.setup()
     }
 
-    setup(config) {
-        this.speed = config['speed']
-        this.x = config['x']
-        this.y = config['y']
-        this.lifes = 1
-
+    static new(game) {
+        return new this(game)
     }
 
-    update() {
-        super.update()
-        this.y -= this.speed
+    setup(){
+        var s = this
+        s.name = 'ground'
+        s.number = 13
+        s.landList = []
+        s.skipCount = 4
+        // s.offset = 5
         //
-
-        this.moveStart()
-
-        this.deadLineRequired()
-    }
-
-    deadLineRequired(){
-        if (this.lifes < -5 || this.scene.upLine > this.y || this.y > this.scene.downLine) {
-            this.alive = false
+        for (var i = 0; i < s.number; i++) {
+            var g = GuaImage.new(s.game, s.name)
+            g.x = i * g.w
+            g.y = 420
+            s.landList.push(g)
         }
     }
 
-    moveStart(){
-        if (this.lifes == 0) {
-            this.particleName = 'particle'
-        }
+    draw(){
+
     }
 
+
+    update(){
+        var s = this
+        s.skipCount--
+        var offset = 5
+        if (s.skipCount == 0) {
+            s.skipCount = 4
+            // s.offset = -2
+            offset = -15
+        }
+        // for (var i = 0; i < 13; i++) {
+        //     var g = s.eles[i]
+        //     g.x -= offset
+        // }
+        // for (g of s.landList) {
+        //     g.x -= s.offset
+        // }
+        for (var i = 0; i < s.landList.length; i++) {
+            var l = s.landList[i]
+            l.x -= offset
+        }
+    }
 }
