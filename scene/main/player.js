@@ -49,7 +49,7 @@ class Bird extends GuaAnimation{
     }
 
     jump(){
-        this.vy = -10
+        this.vy = -15
         this.rotation = -45
     }
 }

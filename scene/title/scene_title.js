@@ -1,19 +1,3 @@
-class Pipes {
-    constructor(game) {
-        this.game = game
-        this.pipes = []
-        for (var i = 0; i < i; i++) {
-            var p = GuaImage.new(game)
-            p1.filpY
-            var p = GuaImage.new(game)
-        }
-    }
-
-    static new(game) {
-        return new this(game)
-    }
-}
-
 class SceneTitle extends GuaScene {
     constructor(game) {
         super(game)

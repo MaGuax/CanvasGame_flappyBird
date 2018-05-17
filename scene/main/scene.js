@@ -12,9 +12,19 @@ class ScenePlay extends GuaScene {
 
     setup(){
         var s = this
+
         //
         s.bg = GuaImage.new(s.game, 'background')
+        s.startLine = s.bg.x
+        s.endLine = s.bg.x + s.bg.w
         s.land = Land.new(s.game)
+        // s.numberOfPipes = 3
+        // s.pipes = []
+        s.pipe = Pipe.new(s.game)
+
+        // s.coin = Coin.new(s.game)
+        // s.coin.x = 50
+        // s.coin.y = 220
 
         //
         s.bird = Bird.new(s.game)
@@ -22,8 +32,10 @@ class ScenePlay extends GuaScene {
         s.bird.y = 220
 
         s.addElement(s.bg)
-        s.addElements(s.land.landList)
+        // s.addElement(s.coin)
         s.addElement(s.bird)
+        s.addElement(s.pipe)
+        s.addElement(s.land)
     }
 
     setupInputs() {
@@ -40,7 +52,7 @@ class ScenePlay extends GuaScene {
         var s = this
 
         s.getAliveEle()
-        s.land.update()
+        // s.land.update()
 
         // s.score.text = `玩家得分：${s.playerScore}`
 

@@ -17,11 +17,6 @@ class GuaParticle extends GuaImage {
     }
 
     update() {
-        // if (this.action == 'particles') {
-        //     this.life--
-        //     this.x += this.vx
-        //     this.y += this.vy
-        // }
         this.life--
         this.x += this.vx
         this.y += this.vy
@@ -66,8 +61,8 @@ class GuaParticleSystem {
         var number = particle['number']
         if (pList.length < number) {
             var p = GuaParticle.new(this.game, name)
-            var vx = randomBtween(-10, 10)
-            var vy = randomBtween(-10, 10)
+            var vx = randomBtween(-5, 5)
+            var vy = randomBtween(-15, 15)
             p.init(this.x, this.y, vx, vy)
             pList.push(p)
         }
@@ -78,13 +73,6 @@ class GuaParticleSystem {
                 p.update()
             }
         }
-
-        // if (this.particleName == 'particle') {
-        //     for(var p of pList) {
-        //         p.update()
-        //     }
-        // }
-
 
         if (this.particleName == 'all') {
             for (var p of pList) {

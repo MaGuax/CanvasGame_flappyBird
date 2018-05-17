@@ -8,6 +8,7 @@ class GuaScene {
 
     addElement(e) {
         e.scene = this
+        // console.log('e', e, );
         this.elements.push(e)
     }
 
@@ -19,6 +20,7 @@ class GuaScene {
     }
 
     draw() {
+        // console.log('bug', this.elements);
         for (var i = 0; i < this.elements.length; i++) {
             var e = this.elements[i]
             e.draw()

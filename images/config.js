@@ -4,6 +4,8 @@ const imgConfig = {
     //
     pipe_up: 'images/pipe_up.png',
     pipe_down: 'images/pipe_down.png',
+    coin_all: 'images/coin.png',
+    coin_particle: 'images/coin_particle.png',
     // title: 'images/name.png',
     // start: 'images/start.png',
     // sceneEnd: 'images/gameOver.png',
