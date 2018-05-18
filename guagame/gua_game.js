@@ -16,17 +16,14 @@ class GuaGame {
         //
         this.scene = null
         this.actions = {}
-        this.keydowns = {}
         this.canvas = document.querySelector('#id-canvas')
         this.context = this.canvas.getContext('2d')
 
         var self = this
-        window.addEventListener('keydown', function(event){
-            self.keydowns[event.key] = true
-        })
 
-        window.addEventListener('keyup', event => {
-            this.keydowns[event.key] = false
+        document.querySelector('canvas').addEventListener('click', function(){
+            var name = self.scene.actionScene
+            self.actions[name]()
         })
     }
 
@@ -64,11 +61,6 @@ class GuaGame {
 
     runLoop() {
         var g = this
-        for (var key in g.actions) {
-            if (g.keydowns[key]) {
-                g.actions[key]()
-            }
-        }
 
         g.update()
 

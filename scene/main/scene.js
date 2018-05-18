@@ -13,6 +13,8 @@ class ScenePlay extends GuaScene {
     setup(){
         var s = this
 
+        s.actionScene = 'play'
+        s.start = false
         //
         s.bg = GuaImage.new(s.game, 'background')
         s.startLine = s.bg.x
@@ -20,16 +22,18 @@ class ScenePlay extends GuaScene {
         s.land = Land.new(s.game)
         // s.numberOfPipes = 3
         // s.pipes = []
-        s.pipe = Pipe.new(s.game)
 
         // s.coin = Coin.new(s.game)
         // s.coin.x = 50
         // s.coin.y = 220
 
+        s.pipe = Pipe.new(s.game)
+
         //
         s.bird = Bird.new(s.game)
         s.bird.x = 50
         s.bird.y = 220
+        s.skilled = 0
 
         s.addElement(s.bg)
         // s.addElement(s.coin)
@@ -41,8 +45,9 @@ class ScenePlay extends GuaScene {
     setupInputs() {
         var s = this
 
-        document.querySelector('canvas').addEventListener('click', function(){
+        s.game.registerAction(s.actionScene, function(){
             s.bird.jump()
+            s.skilled += 1
         })
 
     }
@@ -51,8 +56,27 @@ class ScenePlay extends GuaScene {
         super.update()
         var s = this
 
-        s.getAliveEle()
-        // s.land.update()
+        // if (s.skilled == 5) {
+        //     s.pipe = Pipe.new(s.game)
+        //     s.addElement(s.pipe)
+        //     s.start = true
+        //     s.skilled += 1
+        // }
+
+        if (s.start) {
+            s.pipe.show
+        }
+
+        for (var i = 0; i < s.pipe.pipeList.length; i++) {
+            var { p1, p2 } = s.pipe.pipeList[i]
+            if (rectIntersects(p1, s.bird) || rectIntersects(p2, s.bird)) {
+                s.pipe.active = false
+                s.land.active = false
+            }
+        }
+
+
+
 
         // s.score.text = `玩家得分：${s.playerScore}`
 
@@ -70,11 +94,4 @@ class ScenePlay extends GuaScene {
         this.playerScore += n
     }
 
-    getAliveEle(){
-        // var s = this
-        // s.playerBullet = s.playerBullet.filter(ele => ele.alive)
-        // s.enemysBullet = s.enemysBullet.filter(ele => ele.alive)
-        // s.playerLifes = s.playerLifes.filter(ele => ele.alive)
-        // s.enemys = s.enemys.filter(ele => ele.alive)
-    }
 }

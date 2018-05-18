@@ -11,6 +11,7 @@ class Land {
     setup(){
         var s = this
         s.alive = true
+        s.active = true
         s.name = 'ground'
         s.number = 13
         s.landList = []
@@ -35,6 +36,12 @@ class Land {
 
 
     update(){
+        if (this.active) {
+            this.move()
+        }         
+    }
+
+    move(){
         var s = this
         s.skipCount--
         s.offset = 5

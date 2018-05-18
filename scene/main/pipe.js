@@ -12,6 +12,7 @@ class Pipe {
     setup() {
         var s = this
         s.alive = true
+        s.active = true
         s.number = 3
         s.pipeList = []
         s.spaceY = 100
@@ -34,10 +35,7 @@ class Pipe {
 
     draw(){
         var s = this
-        // for (var i = 0; i < s.pipeList.length; i++) {
-        //     var p = s.pipeList[i]
-        //     s.game.drawImage(p)
-        // }
+
         for (var i = 0; i < s.pipeList.length; i++) {
             var ps = s.pipeList[i]
             var { p1, p2 } = ps
@@ -52,14 +50,13 @@ class Pipe {
     }
 
     update(){
-        var s = this
-        for (var i = 0; i < s.pipeList.length; i++) {
-            var p = s.pipeList[i]
-            p.x -= s.speed
-            if (p.x < 0 - p.w) {
-                p.x += s.spaceX * s.number
-            }
+        if (this.active) {
+            this.move()
         }
+    }
+
+    move(){
+        var s = this
         for (var i = 0; i < s.pipeList.length; i++) {
             var ps = s.pipeList[i]
             var { p1, p2 } = ps

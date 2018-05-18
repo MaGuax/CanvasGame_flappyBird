@@ -10,6 +10,7 @@ class Bird extends GuaAnimation{
         super(game, 'palyer', animations)
 
         this.filpX = false
+        this.active = true
 
         //
         this.gy = 10
@@ -36,6 +37,12 @@ class Bird extends GuaAnimation{
 
     update(){
         super.update()
+        if (this.active) {
+            this.action()
+        }
+    }
+
+    action(){
         this.y += this.vy
         this.vy += this.gy * 0.2
         var h = 385
