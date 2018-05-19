@@ -17,7 +17,10 @@ class Coin extends GuaImage {
 
     update(){
         super.update()
-        this.x -= this.speed
+
+        if (this.game.scene.playing) {
+            this.x -= this.speed
+        }
 
         if (this.x < this.game.scene.startLine) {
             this.alive = false

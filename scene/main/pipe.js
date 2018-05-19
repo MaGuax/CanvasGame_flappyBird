@@ -76,16 +76,16 @@ class Pipe {
 
     anew(p1, p2){
         p1.through = true
-        p1.x += this.spaceX * this.number
+        p1.x += this.spaceX * this.number 
         p2.x = p1.x
         this.setPipeY(p1, p2)
-        var lucky = randomBtween(4, 9)
+        var lucky = randomBtween(4, 8)
         if (lucky == 6) {
             var coin = Coin.new(this.game)
             coin.x = p1.x + p1.w / 2 - coin.w / 2
             coin.y = p2.y - this.spaceY / 2
             coin.speed = this.speed
-            if (this.showIn && this.active) {
+            if (this.showIn) {
                 this.scene.addElement(coin)
                 this.scene.coins.push(coin)
             }

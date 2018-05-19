@@ -1,6 +1,14 @@
 const imgConfig = {
-    background: 'images/bg_day.png',
+    background_day: 'images/bg_day.png',
+    background_night: 'images/bg_night.png',
     ground: 'images/ground.png',
+    end_title: 'images/text_game_over.png',
+    //
+    home_title: 'images/title.png',
+    start_button: 'images/button_play.png',
+    //
+    ready_title: 'images/text_ready.png',
+    ready_button: 'images/tutorial.png',
     //
     big_number0: 'images/font_0.png',
     big_number1: 'images/font_1.png',
@@ -27,9 +35,7 @@ const imgConfig = {
     pipe_up: 'images/pipe_up.png',
     pipe_down: 'images/pipe_down.png',
     coin: 'images/coin.png',
-    // title: 'images/name.png',
-    // start: 'images/start.png',
-    // sceneEnd: 'images/gameOver.png',
+    coin_logo: 'images/coin_logo.png',
     //
     palyer_idle1: 'images/bird1_0.png',
     palyer_idle2: 'images/bird1_1.png',

@@ -8,7 +8,6 @@ class Bird extends GuaAnimation{
             }
         }
         super(game, 'palyer', animations)
-        this.lifes = 3
         this.filpX = false
         this.active = true
 
@@ -42,12 +41,19 @@ class Bird extends GuaAnimation{
         }
     }
 
+    acitveOff(){
+        this.active = false
+    }
+
+    acitveOn(){
+        this.active = true
+    }
+
     action(){
-        this.y += this.vy
+        this.y += this.vy         
         this.vy += this.gy * 0.2
-        var h = 385
-        if (this.y > h) {
-            this.y = h
+        if (this.y > this.game.scene.landLine) {
+            this.y = this.game.scene.landLine
         }
 
         if (this.rotation < 45) {
@@ -63,6 +69,7 @@ class Bird extends GuaAnimation{
     }
 
     dead(){
+        this.lifes -= 1
         this.vy = -10
         this.rotation = -45
     }

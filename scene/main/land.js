@@ -16,12 +16,13 @@ class Land {
         s.number = 13
         s.landList = []
         s.skipCount = 4
+        s.y = 420
 
         //
         for (var i = 0; i < s.number; i++) {
             var g = GuaImage.new(s.game, s.name)
             g.x = i * g.w
-            g.y = 420
+            g.y = s.y
             s.landList.push(g)
         }
     }
