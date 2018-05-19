@@ -13,15 +13,20 @@ class Pipe {
         var s = this
         s.alive = true
         s.active = true
+        s.showIn = false
         s.number = 3
         s.pipeList = []
-        s.spaceY = 100
+        s.x = 0
+        s.spaceY = 120
         s.spaceX = randomBtween(200, 250)
         s.speed = 5
 
-        for (var i = 0; i < s.number; i++) {
+        for (var i = 3; i < s.number + 3; i++) {
             var p1 = GuaImage.new(s.game, 'pipe_down')
-            p1.x = i * s.spaceX + p1.w
+            // through 是否被小鸟穿过
+            // true 未穿过 / false 穿过
+            p1.through = true
+            p1.x = (i * s.spaceX + p1.w) + s.x
             var p2 = GuaImage.new(s.game, 'pipe_up')
             p2.x = p1.x
             s.setPipeY(p1, p2)
@@ -35,12 +40,13 @@ class Pipe {
 
     draw(){
         var s = this
-
-        for (var i = 0; i < s.pipeList.length; i++) {
-            var ps = s.pipeList[i]
-            var { p1, p2 } = ps
-            s.game.drawImage(p1)
-            s.game.drawImage(p2)
+        if (s.showIn) {
+            for (var i = 0; i < s.pipeList.length; i++) {
+                var ps = s.pipeList[i]
+                var { p1, p2 } = ps
+                s.game.drawImage(p1)
+                s.game.drawImage(p2)
+            }
         }
     }
 
@@ -63,11 +69,35 @@ class Pipe {
             p1.x -= s.speed
             p2.x -= s.speed
             if (p1.x < 0 - p1.w) {
-                p1.x += s.spaceX * s.number
-                p2.x = p1.x
-                s.setPipeY(p1, p2)
+                s.anew(p1, p2)
             }
         }
+    }
+
+    anew(p1, p2){
+        p1.through = true
+        p1.x += this.spaceX * this.number
+        p2.x = p1.x
+        this.setPipeY(p1, p2)
+        var lucky = randomBtween(4, 9)
+        if (lucky == 6) {
+            var coin = Coin.new(this.game)
+            coin.x = p1.x + p1.w / 2 - coin.w / 2
+            coin.y = p2.y - this.spaceY / 2
+            coin.speed = this.speed
+            if (this.showIn && this.active) {
+                this.scene.addElement(coin)
+                this.scene.coins.push(coin)
+            }
+        }
+    }
+
+    stopMove(){
+        this.active = false
+    }
+
+    show(){
+        this.showIn = true
     }
 
 }

@@ -1,36 +1,30 @@
-class Coin extends GuaParticleSystem {
+class Coin extends GuaImage {
     constructor(game) {
-        var particle = {
-            'all': {
-                number: 1,
-                particleList: []
-            },
-            'particle': {
-                number: 15,
-                particleList: []
-            }
-        }
-        super(game, 'coin', particle)
-        this.setup(config)
-    }
-
-    setup(config) {
+        super(game, 'coin')
         this.x = 0
         this.y = 0
-        this.lifes = 1
+        this.speed = 0
     }
 
-    update() {
-        super.update()
+    static new(game){
+        var i = new this(game)
+        return i
+    }
 
-        //
-        if (this.lifes == 0) {
-            this.particleName = 'particle'
-        }
-        //
-        if (this.lifes < -5 || this.scene.startLine > this.x || this.x > this.scene.endLine) {
+    draw(){
+        super.draw()
+    }
+
+    update(){
+        super.update()
+        this.x -= this.speed
+
+        if (this.x < this.game.scene.startLine) {
             this.alive = false
-            this.scene.addCoin()
         }
+    }
+
+    dead(){
+        this.alive = false
     }
 }

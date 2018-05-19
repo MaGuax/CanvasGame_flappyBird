@@ -8,12 +8,12 @@ class Bird extends GuaAnimation{
             }
         }
         super(game, 'palyer', animations)
-
+        this.lifes = 3
         this.filpX = false
         this.active = true
 
         //
-        this.gy = 10
+        this.gy = 6
         this.vy = 0
         this.rotation = 0
     }
@@ -56,7 +56,14 @@ class Bird extends GuaAnimation{
     }
 
     jump(){
-        this.vy = -15
+        if (this.lifes > 0) {
+            this.vy = -10
+            this.rotation = -45
+        }
+    }
+
+    dead(){
+        this.vy = -10
         this.rotation = -45
     }
 }

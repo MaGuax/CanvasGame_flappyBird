@@ -38,7 +38,7 @@ class Land {
     update(){
         if (this.active) {
             this.move()
-        }         
+        }
     }
 
     move(){
@@ -53,5 +53,9 @@ class Land {
             var l = s.landList[i]
             l.x -= s.offset
         }
+    }
+
+    stopMove(){
+        this.active = false
     }
 }
